@@ -12,8 +12,7 @@ url <- "https://raw.githubusercontent.com/jairoescrito/00_MasterClass_R/master/d
 # Descargar el conjunto de datos y guardarlo en un arreglo de datos tipo dataframe
 dataset <- read.csv(url)
 rm(url) #eliminar la variable del entorno es útil para optimizar el uso de recursos
-dataset <- dataset[,-1]
-write.csv(dataset,"dataset.csv")
+
 ## 1. Entendimiento del dataset
 # Conocer cada una de las variables que compponen el dataset, el tipo de datos y las pposibles
 # variables de baja relevancia en el análisis a realizar
