@@ -1,37 +1,27 @@
 # Cargar el conjunto de datos
 # En algunos casos es más práctico cargar los datos desde su publicación en la web
-url <- "https://raw.githubusercontent.com/jairoescrito/datasets/master/GermanCredit.csv"
+url <- "https://raw.githubusercontent.com/jairoescrito/00_MasterClass_R/master/dataset.csv"
 # https://archive.ics.uci.edu/dataset/144/statlog+german+credit+data
 
 # Si los datos se tienen en un repositorio local, es necesario copiar el archivo en el
 # directorio de trabajo, o bien, en una variable tipo url, la ruta completa de acceso al
 # archivo 
-# Consultar mi directorio de trabajo
-getwd()
-# Modificar el directorio de trabajo
-setwd("C:\\Directorio\de\Trabajo")
+# Consultar mi directorio de trabajo: getwd()
+# Modificar el directorio de trabajo: setwd("C:\\Directorio\de\Trabajo")
 
 # Descargar el conjunto de datos y guardarlo en un arreglo de datos tipo dataframe
 dataset <- read.csv(url)
-Index <- sample(1:nrow(dataset),size=round(nrow(dataset)*0.05,0),replace=FALSE) 
-dataset$purpose[Index] <- NA
-Index <- sample(1:nrow(dataset),size=round(nrow(dataset)*0.05,0),replace=FALSE)
-dataset$amount[Index] <- NA
-Index <- sample(1:nrow(dataset),size=round(nrow(dataset)*0.03,0),replace=FALSE)
-dataset$housing[Index] <- NA
-
-write.csv(dataset, "dataset.csv")
-
-
 rm(url) #eliminar la variable del entorno es útil para optimizar el uso de recursos
-
+dataset <- dataset[,-1]
+write.csv(dataset,"dataset.csv")
 ## 1. Entendimiento del dataset
 # Conocer cada una de las variables que compponen el dataset, el tipo de datos y las pposibles
 # variables de baja relevancia en el análisis a realizar
 
 # Tamaño del dataset
-cat(ncol(dataset), "filas y", ncol(dataset),"columnas")
-head(dataset)
+cat(nrow(dataset), "filas y", ncol(dataset),"columnas")
+head(dataset) # vista previa (en consola) de las primeras filas del dataset
+View(dataset) # Función predeterminada de RStudio para ver el dataset en una pestaña auxiliar
 '
 status: estado de ingresos en cuentas (movimientos)
 duration: duración, en meses, del crédito solicitado
