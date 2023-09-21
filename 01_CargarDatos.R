@@ -20,7 +20,7 @@ dataset$amount[Index] <- NA
 Index <- sample(1:nrow(dataset),size=round(nrow(dataset)*0.03,0),replace=FALSE)
 dataset$housing[Index] <- NA
 
-write.csv("dataset.csv",dataset)
+write.csv(dataset, "dataset.csv")
 
 
 rm(url) #eliminar la variable del entorno es útil para optimizar el uso de recursos
