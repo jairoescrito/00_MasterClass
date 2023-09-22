@@ -1,4 +1,5 @@
-# Cargar el conjunto de datos
+# 1. Cargar el conjunto de datos
+
 # En algunos casos es más práctico cargar los datos desde su publicación en la web
 url <- "https://raw.githubusercontent.com/jairoescrito/00_MasterClass_R/master/dataset.csv"
 # https://archive.ics.uci.edu/dataset/144/statlog+german+credit+data
@@ -10,12 +11,19 @@ url <- "https://raw.githubusercontent.com/jairoescrito/00_MasterClass_R/master/d
 # Modificar el directorio de trabajo: setwd("C:\\Directorio\de\Trabajo")
 
 # Descargar el conjunto de datos y guardarlo en un arreglo de datos tipo dataframe
-dataset <- read.csv(url)
+dataset <- read.csv(url) # Lectura de archivos planos (tipo csv)
 rm(url) #eliminar la variable del entorno es útil para optimizar el uso de recursos
-
 ## 1. Entendimiento del dataset
-# Conocer cada una de las variables que compponen el dataset, el tipo de datos y las pposibles
+# Conocer cada una de las variables que componen el dataset, el tipo de datos y las posibles
 # variables de baja relevancia en el análisis a realizar
+
+# Para cargar archivos xlsx, es necesaria la librería "openxlsx"
+library(openxlsx)
+# Lectura desde el fichero local definido como directorio de trabajo
+dataset2<-read.xlsx("dataset.xlsx",sheet = 1) # Con el parámentro sheet le mencionamos que hoja del 
+# libro queremos que cargue en el dataframe. Esta instrucción carga una sola hoja
+
+# Exploración inicial del conjunto de datos
 
 # Tamaño del dataset
 cat(nrow(dataset), "filas y", ncol(dataset),"columnas")
@@ -51,25 +59,6 @@ sapply(dataset,class)
 unique(sapply(dataset,class)) # Obtenemos los tipos de datos que tenemos en el dataset
 sum(sapply(dataset,class) == "character") # Cantidad de variables tipo caracter
 sum(sapply(dataset,class) == "integer") # cantidad de variables tipo entero
-# Las variables tipo "caracter" requieren ser ajustadas a tipo "factor" esto es, convertirlas a 
-# variables categóricas. En las variables tipo factor se definen los niveles (o categorías) lo cual 
-# facilita el análisis de los datos. Consultar los valores únicos que toma cada una de las variables
-# tipo caracter ayuda a identificar aquellas que pueden transformarse en categóricas. 
-# También, es importante tener en cuenta que no todas las variables numéricas lo son en sí,
-# Algunas son variable dummie (son variables discretas que toman un número limitado de valores)
-# Usar la función summary (que entrega un resumen de los datos) también puede ser útil
-summary(dataset)
-# Adicional a las variables tipo caracter, se tiene las variables 
-# installment_rate, present_residence, number_credits, people_liable, credit_risk
-# Pese a que son númericas, no es lógico un análisis numérico, su naturaleza es más
-# categórica, son variables tipo dummie
-# Las variables tipo caracter se van a ajustar todas a categóricas (factor)
-# Algunas tipo entero deben ser ajustadas, también, a tipo factor, no obstante, hay que
-# tener claramente identificadas cuales. Los resultados de summary proporcionan información
-# si se requiere ver solo las variables numéricas
-index <- array(which(sapply(dataset,class) == "integer"))
-summary(dataset[,index])
-
 
 
 
